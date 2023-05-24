@@ -1,0 +1,27 @@
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# Налашттування PHP
+#upload_max_filesize - обмеження розміру завантажуваних файлів до 64МБ. Ви можете змінити це значення відповідно до своїх потреб.
+#post_max_size - обмеження розміру POST-даних до 64МБ. Ви також можете змінити це значення відповідно до своїх потреб.
+#max_execution_time - максимальний час виконання PHP-сценаріїв встановлено на 300 секунд (5 хвилин). Знову ж таки, це значення можна змінити за необхідності.
+#max_input_time - максимальний час, який PHP витрачає на обробку вхідних даних, таких як запити POST або GET.
+#memory_limit - максимальний обсяг пам'яті, який може використовувати PHP, встановлено на 128МБ. Залежно від потреб вашого сайту, ви можете збільшити або зменшити це значення.
+#session.gc_maxlifetime - максимальний час життя сесії встановлено на 1440 секунд (24 хвилини). Це визначає, через який період часу сесія буде автоматично закрита.
+<IfModule mod_php.c>
+    php_value upload_max_filesize 64M
+    php_value post_max_size 64M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_value memory_limit 128M
+    php_value session.gc_maxlifetime 1440
+</IfModule>
+
+
