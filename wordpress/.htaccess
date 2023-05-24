@@ -1,4 +1,4 @@
-
+# ПОЧАТОК налаштувань WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
@@ -7,6 +7,53 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
+# КІНЕЦЬ налаштувань WordPress
+
+# Вимкнути підпис сервера
+ServerSignature Off
+
+# Включити ETag
+FileETag none
+
+# Встановити заголовки для кешування
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/css "access plus 1 year"
+ExpiresByType text/javascript "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType application/x-javascript "access plus 1 year"
+ExpiresByType image/gif "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType image/svg+xml "access plus 1 year"
+ExpiresByType image/x-icon "access plus 1 year"
+ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# Увімкнути стиснення Gzip
+<IfModule mod_deflate.c>
+<IfModule mod_filter.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css text/javascript application/javascript application/x-javascript
+</IfModule>
+</IfModule>
+
+# Встановити заголовки "Cache-Control" для важливих файлів
+<FilesMatch "(^wp-admin$|^wp-login\.php|^wp-cron\.php)">
+Header set Cache-Control "private, no-store, no-cache, must-revalidate, max-age=0"
+</FilesMatch>
+
+# Встановити заголовки "Cache-Control" для статичних файлів
+<FilesMatch "\.(css|js|ico|pdf|flv|jpg|jpeg|png|gif|swf|ico|woff|woff2|ttf)$">
+Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Вимкнути включення серверних скриптів
+<IfModule mod_include.c>
+    Options -Includes
+</IfModule>
+
+# Вимкнути перегляд вмісту каталогів
+Options -Indexes
 
 # Налашттування PHP
 #upload_max_filesize - обмеження розміру завантажуваних файлів до 64МБ.
@@ -23,5 +70,3 @@ RewriteRule . /index.php [L]
     php_value memory_limit 128M
     php_value session.gc_maxlifetime 1440
 </IfModule>
-
-
